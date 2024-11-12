@@ -46,7 +46,7 @@
     <button onclick="location.href='/order/regist'">GET 주문 등록하기</button>
     <hr>
     <h3>POST 방식 메뉴 수정 : /order/regist</h3>
-    <form action="/order/modify">
+    <form action="/order/modify" method="post">
         <button type="submit">POST 주문 수정하기</button>
     </form>
     <hr>
@@ -56,8 +56,8 @@
     </form>
     <hr>
     <h3>GET 방식 주문 상세보기 : /order/detail/{orderNo}</h3>
-    <button onclick="location.href='/order/detail/{orderNo}'">GET 주문 상세보기</button>
-
+    <button onclick="location.href='/order/detail/3'">GET 주문 상세보기</button>
+                                            <!-- 3이라는 값은 변수에 담을 값 '3번이나옴' -->
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 </body>
