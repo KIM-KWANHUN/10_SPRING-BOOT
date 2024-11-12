@@ -1,0 +1,4 @@
+server:
+  port: 7777
+#  ??
+#  sert.port=7777
