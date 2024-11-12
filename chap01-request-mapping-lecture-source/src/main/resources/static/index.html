@@ -9,9 +9,56 @@
     <h1 align="center">Spring MVC Mapping 테스트</h1>
     <hr>
     <h2>1. 메소드에 요청 매핑하기</h2>
-    <h3>GET 방식의 요청 : /menu/regist</h3>
+    <h3>GET 방식 메뉴 등록 : /menu/regist</h3>
     <button onclick="location.href='/menu/regist'">GET 메뉴 등록 요청</button>
+    <hr>
+    <h3>POST 방식 메뉴 등록 : /menu/regist</h3>
+    <form action="/menu/regist" method="post">
+        <button type="submit">POST 메뉴 등록 요청</button>
+    </form>
+    <hr>
+    <h3>GET 방식 메뉴 수정 : /menu/modify</h3>
+    <button onclick="location.href='/menu/modify'">
+        GET 메뉴 수정 요청
+    </button>
+    <hr>
     <!--loaction.href 링크로 간다.-->
+    <!-- 요청 URL 을 value 속성, 요청 방식을 method 속성에 지정
+         GET 방식의 요청만 받게 명시를 하였다.
+         그렇기 때문에 URL 이 같더라도 POST 방식의 요청을 받을 수 없다. -->
+    <h3>POST 방식 메뉴 수정 : /menu/modify</h3>
+    <form action="/menu/modify" method="post">
+        <button type="submit">POST 수정 요청 (실행 X)</button>
+    </form>
+    <hr>
+    <h3>GET 방식 메뉴 삭제 : /menu/delete</h3>
+    <button onclick="location.href='/menu/delete'">GET 메뉴 삭제 요청</button>
+    <hr>
+    <h3>POST 방식 메뉴 삭제 : /menu/delete</h3>
+    <form action="/menu/delete" method="post">
+        <button type="submit">POST 메뉴 삭제 요청</button>
+    </form>
+    <br>
+    <br>
+    <br>
+    <h2>2. 클래스에 요청 매핑하기</h2>
+    <h3>GET 방식 메뉴 등록 : /order/regist</h3>
+    <button onclick="location.href='/order/regist'">GET 주문 등록하기</button>
+    <hr>
+    <h3>POST 방식 메뉴 수정 : /order/regist</h3>
+    <form action="/order/modify">
+        <button type="submit">POST 주문 수정하기</button>
+    </form>
+    <hr>
+    <h3>POST 방식 메뉴 삭제 : /order/delete</h3>
+    <form action="/order/delete" method="post">
+        <button type="submit">POST 주문 삭제하기</button>
+    </form>
+    <hr>
+    <h3>GET 방식 주문 상세보기 : /order/detail/{orderNo}</h3>
+    <button onclick="location.href='/order/detail/{orderNo}'">GET 주문 상세보기</button>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 </body>
 </html>
