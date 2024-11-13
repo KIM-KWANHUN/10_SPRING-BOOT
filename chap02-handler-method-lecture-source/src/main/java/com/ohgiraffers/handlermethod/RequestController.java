@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Map;
 
 @Controller
@@ -172,6 +174,22 @@ public class RequestController {
 
     @GetMapping("body")
     public void body() {}
+
+    /* comment.
+    *   @RequestBody
+    *   해당 어노테이션은 http 본문 자체를 읽는 부분을
+    *   모델로 변환시켜주는 어노테이션이다. */
+    @PostMapping("body")
+    public void bodyTest(@RequestBody String body) throws UnsupportedEncodingException {
+
+        System.out.println(body);
+        /* comment.
+        *   넘어 온 값을 보면 알 수 없이 변환이 되어 있다.
+        *   이 것을 encoding(암호화 처리) 되어있다 라고 말하며
+        *   해석을 하기 위해서는 decoding 을 해야 된다. */
+
+        System.out.println(URLDecoder.decode(body, "UTF-8"));
+    }
 
 
 }
