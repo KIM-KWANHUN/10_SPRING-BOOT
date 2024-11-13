@@ -10,5 +10,8 @@
     <h3 th:text="|${session.id} 님 환영합니다.😍|"></h3>
     <br>
     <button onclick="location.href='logout1'">로그아웃</button>
+    <!-- sessionAttribute 방식은 invalidate() 메소드가 적용되지 않는다. -->
+    <br>
+    <button onclick="location.href='logout2'">로그아웃 2</button>
 </body>
 </html>

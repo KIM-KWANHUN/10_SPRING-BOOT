@@ -4,12 +4,14 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Map;
 
 @Controller
 @RequestMapping("request/*")
+@SessionAttributes("id")
 public class RequestController {
 
     /* title. 요청 시 값을 전달 받는 방법 */
@@ -25,6 +27,7 @@ public class RequestController {
     public void regist() {
 
     }
+
     /* comment.
     *   1. WebRequest 객체로 요청 파라미터 전달 받기
     *   매개변수 선언부에 WebRequest 객체를 선언하면
@@ -57,6 +60,7 @@ public class RequestController {
     public void modify() {
         // modify.html 파일 생성
     }
+
     /* comment.
     *   @RequestParam
     *   화면에서 요청하는 값을 담아주는 어노테이션이다.
@@ -78,6 +82,7 @@ public class RequestController {
         model.addAttribute("message", message);
         return "request/printResult";
     }
+
     /* comment.
     *   요청 파라미터가 여러 개인 경우 각각 담는 것이 아닌
     *   😁Map 을 사용해서 한 번에 담을 수 있다.😁
@@ -97,6 +102,7 @@ public class RequestController {
     public void search() {
         // search.html 파일 생성
     }
+
     /* comment.
     *   받아 올 데이터가 여러개라면 관리할 변수나, 키값이
     *   많아질 수 밖에 없다. 그럴때 클래스로 값을 가져온다.
@@ -118,6 +124,7 @@ public class RequestController {
     public void login() {
         // login.html 파일생성
     }
+
     /* comment.
     *   HttpSession 객체 이용해서 요청 값 저장하기 */
     @PostMapping("login1") // login.html 에 만들었던 form 태그의 action 이름
@@ -137,6 +144,34 @@ public class RequestController {
 
         return "request/loginResult";
     }
+
+    /* comment.
+    *   @SessionAttributes 를 이용한 session 에 값 담기
+    *   클래스 레벨에 @SessionAttributes 을 사용하여
+    *   session 에 담을 key 값을 설정해두면
+    *   Model 영역에 해당 key 로 값이 추가되는 경우
+    *   자동으로 session 에 등록해준다. */
+    @PostMapping("login2")
+    public String sessionTest2(Model model,
+                               @RequestParam String id) {
+        model.addAttribute("id", id);
+
+        return "request/loginResult";
+    }
+    /* comment.
+    *   SessionAttributes 방식은 session 의 상태를 관리하는
+    *   SessionStatus 객체의 setComplete() 메소드를
+    *   사용해야 만료 시킬 수 있다. */
+    @GetMapping("logout2")
+    public String logout2(SessionStatus sessionStatus) {
+
+        sessionStatus.setComplete();
+
+        return "request/loginResult";
+    }
+
+    @GetMapping("body")
+    public void body() {}
 
 
 }
