@@ -1,11 +1,12 @@
 package com.ohgiraffers.handlermethod;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("request/*")
@@ -19,7 +20,7 @@ public class RequestController {
     *   2. 메소드의 반환타입을 void
     *   - 반환 타입을 void 로 하게 되면 요청 url 이 view 의 이름이 된다.
     *   - templates 에 파일이름을 똑같이 해야한다. */
-
+    // 값 추가
     @GetMapping("regist")
     public void regist() {
 
@@ -41,8 +42,101 @@ public class RequestController {
     * */
     @PostMapping("regist")
     public String registMenu(Model model, WebRequest request) {
+        String menuName = request.getParameter("name");
+        int menuPrice = Integer.parseInt(request.getParameter("price"));
+        int categoryCode = Integer.parseInt(request.getParameter("categoryCode"));
 
+        String message = menuName + "을(를) 신규 메뉴 목록" + categoryCode + "번 카테고리에" + menuPrice + "원으로 등록 했습니다!!!";
 
+        model.addAttribute("message",message);
+        return "request/printResult";
     }
+
+    // 값 수정
+    @GetMapping("modify")
+    public void modify() {
+        // modify.html 파일 생성
+    }
+    /* comment.
+    *   @RequestParam
+    *   화면에서 요청하는 값을 담아주는 어노테이션이다.
+    *   담을 매개변수 앞에 작성을 하게 되며
+    *   😁form 의 name 속성과 밑에 매개변수 명이 일치해야 한다.😁
+    *   다른방법은   @RequestParam("폼 name 속성") String 사용하고 싶은 변수명
+    *   ex) @RequestParam("modifyName") String name
+    *   name 속성이 일치하지 않을 때 400-bad request 에러가 발생한다.
+    *   이는 required 속성의 기본 값이 true 이기 때문이다.
+    *   이 때 required 속성의 값을 false 로 바꿔주게 되면
+    *   해당하는 name 속성이 일치하지 않더라도 error 를 발생시키지 않고
+    *   null 로 처리를 하게 된다. */
+    @PostMapping("modify")
+    public String modify(Model model,
+                         @RequestParam String modifyName,
+                         @RequestParam int modifyPrice) {
+        String message = modifyName + "의 가격을" + modifyPrice + "로 수정!!";
+
+        model.addAttribute("message", message);
+        return "request/printResult";
+    }
+    /* comment.
+    *   요청 파라미터가 여러 개인 경우 각각 담는 것이 아닌
+    *   😁Map 을 사용해서 한 번에 담을 수 있다.😁
+    *   맵의 key 는 form 태그의 name 속성 값이 된다. */
+    @PostMapping("modifyAll")
+    public String modifyAll(Model model, @RequestParam Map<String, String> parameters) {
+        String menuName = parameters.get("modifyName2");
+        int menuPrice = Integer.parseInt(parameters.get("modifyPrice2"));
+
+        String message = menuName + "의 가격을" + menuPrice + "로 수정!!";
+
+        model.addAttribute("message", message);
+        return "request/printResult";
+    }
+
+    @GetMapping("search")
+    public void search() {
+        // search.html 파일 생성
+    }
+    /* comment.
+    *   받아 올 데이터가 여러개라면 관리할 변수나, 키값이
+    *   많아질 수 밖에 없다. 그럴때 클래스로 값을 가져온다.
+    *   @ModelAttribute 객체를 생성하여 요청되는 값을 필드와
+    *   form 태그의 name 속성과 비교하여 값을 넣어준다.
+    *   @ModelAttribute 담은 값은 view 페이지에서
+    *   타입(자료형) 앞글자를 소문자로 한 네이밍 규칙으로
+    *   사용할 수 있다.(menuDTO)
+    *   @ModelAttribute("사용할 값") 이렇게 지정 할 수도 있다. */
+    /* comment.
+     *   form 태그의 name 속성과 MenuDTO 에 필드 이름을 맞춰주어야 한다. */
+    @PostMapping("search")
+    public String searchMenu(@ModelAttribute MenuDTO menu) {
+        System.out.println("menu = " + menu);
+        return "request/searchResult";
+    }
+    // 로그인
+    @GetMapping("login")
+    public void login() {
+        // login.html 파일생성
+    }
+    /* comment.
+    *   HttpSession 객체 이용해서 요청 값 저장하기 */
+    @PostMapping("login1") // login.html 에 만들었던 form 태그의 action 이름
+    public String SessionTest(HttpSession session, @RequestParam String id) {
+
+        session.setAttribute("id", id);
+
+
+        return "request/loginResult";
+    }
+
+    // 로그 아웃
+    @GetMapping("logout1")
+    public String logout1(HttpSession session){
+        // 강제 session 만료 시키는 메소드
+        session.invalidate();
+
+        return "request/loginResult";
+    }
+
 
 }
