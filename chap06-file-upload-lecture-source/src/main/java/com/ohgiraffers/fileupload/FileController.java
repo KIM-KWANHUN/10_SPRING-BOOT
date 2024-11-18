@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -83,7 +84,47 @@ public class FileController {
     }
 
     @PostMapping("multi-file")
-    public String multiFile(@RequestParam List<MultipartFile> multiFile, String description, Model model) {
+    public String multiFile(@RequestParam List<MultipartFile> multiFile, String description, Model model) throws IOException {
+
+        System.out.println("multiFile = " + multiFile);
+        System.out.println("description = " + description);
+
+        /* index 1. 파일을 저장할 위치 설정 */
+        Resource resource = resourceLoader.getResource("classpath:static/img/multi");
+
+        String filePath = null;
+        // 만약에 위에서 지정한 파일의 저장위치가 존재하지 않는다면?
+        if(!resource.exists()) {
+            String root = "src/main/resources/static/img/multi";
+            File file = new File(root);
+            // make directory 의 약자
+            // 우리가 root 에 지정한 경로대로 디렉토리를 만들어준다.
+            file.mkdirs();
+
+            // 만든 폴더의 경로를 filePath 변수에 담아주기
+            filePath = file.getAbsolutePath();
+        } else {
+            // 디렉토리가 만들어진 적이 있다면?
+            filePath = resourceLoader.getResource("classpath:static/img/multi").getFile().getAbsolutePath();
+        }
+
+        /* index 2. 멀티 파일 변경 처리 */
+        List<FileDTO> files = new ArrayList<>();
+        List<String> savedFiles = new ArrayList<>();
+
+        for(MultipartFile file : multiFile) {
+
+            String originFileName = file.getOriginalFilename();
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));
+            String savedName = UUID.randomUUID().toString().replace("-","") + ext;
+
+            files.add(new FileDTO(originFileName, savedName, filePath, description));
+            file.transferTo(new File(filePath + "/" + savedName));
+            savedFiles.add("static/img/multi/" + savedName);
+        }
+
+        model.addAttribute("message", "파일업로드 성공!!!");
+        model.addAttribute("imgs", savedFiles);
 
         return "result";
     }
