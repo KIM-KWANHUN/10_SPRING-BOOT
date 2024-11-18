@@ -75,7 +75,7 @@ public class FileController {
         singleFile.transferTo(new File(filePath + "/" + savedName));
 
         model.addAttribute("message", "파일업로드 성공!!");
-        model.addAttribute("img", "static/img/single" + savedName);
+        model.addAttribute("img", "static/img/single/" + savedName);
 
         return "result";
 
