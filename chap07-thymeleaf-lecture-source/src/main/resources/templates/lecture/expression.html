@@ -83,16 +83,37 @@
     <li><input type="text" th:value="타임리프"></li>
 </ul>
 <hr>
-<h3 th:inline>표현식 - 인라인 표현식 [[...]], [(...)]</h3>
+<h3 th:inline="none">표현식 - 인라인 표현식 [[...]], [(...)]</h3>
 <p th:inline="none">
     변수 표현식의 값을 html 에 직접 사용하기 위해서 ht:text 와 동일한 기능인
     [[...]] 을 사용할 수 있고, th:utext 와 동일한 기능인 [(...)] 을 사용할 수 있다.
+    th:inline="none" 으로 설정을 하게 되면, [[]] 와 [()] 를 단순
+    문자열 취급 처리를 할 수 있게 된다.
 </p>
 <ul>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
+    <li>[[${hello}]]</li>
+    <li>[(${hello})]</li>
+    <li th:inline="none">[[${hello}]]</li>
+    <li th:inline="none">[(${hello})]</li>
 </ul>
+<script>
+    window.onload = function () {
+        const hi = `[[${hello}]]`;
+        alert(hi);
+    }
+</script>
+<hr>
+<h3>리터럴 치환 ||</h3>
+<p>'+' 기호를 사용하지 않고 문자열 합치는 ||</p>
+<th:block th:object="${member}">
+<!--    <p th:text="이름 = *{name}"></p>
+        문자열 합치기를 하고싶은데 이렇게 하면 에러가 난다.-->
+    <p th:text="|이름 = *{age}|"></p>
+    <p th:text="|나이 = *{age}|"></p>
+    <p th:text="|성별 = *{gender}|"></p>
+    <p th:text="|주소 = *{address}|"></p>
+<!-- || 연산자로 합치기를 해주어야 한다. -->
+    
+</th:block>
 </body>
 </html>
