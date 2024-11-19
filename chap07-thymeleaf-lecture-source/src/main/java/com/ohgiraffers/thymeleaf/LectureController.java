@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -47,6 +49,34 @@ public class LectureController {
 
         return mv;
     }
+
+    @GetMapping("etc")
+    public ModelAndView etc(ModelAndView mv) {
+
+        SearchCriteria criteria = new SearchCriteria(1,10,3);
+
+        // key 와 value 형식으로 작성 가능하지만, key 를 작성하지 않을 시
+        // 해당하는 인스턴스의 타입 = 클래스 가 key 값이 된다.
+        mv.addObject(criteria);
+
+        List<MemberDTO> memberList = new ArrayList<>();
+        memberList.add(new MemberDTO("제이통",37,'남',"LA"));
+        memberList.add(new MemberDTO("제네더질라",35,'남',"LA"));
+        memberList.add(new MemberDTO("플리키뱅",33,'남',"LA"));
+        memberList.add(new MemberDTO("던밀스",33,'남',"LA"));
+
+        mv.addObject("memberList", memberList);
+
+        Map<String, MemberDTO> memberMap = new HashMap<>();
+        memberMap.put("1", new MemberDTO("모하메드 살라", 33, '남', "이집트"));
+        memberMap.put("2", new MemberDTO("루이스 디아즈", 29, '남', "콜롬비아"));
+        memberMap.put("3", new MemberDTO("버질 반다이크", 33, '남', "네덜란드"));
+        memberMap.put("4", new MemberDTO("알렉산더 아놀드", 33, '남', "이집트"));
+        mv.setViewName("lecture/etc");
+
+        return mv;
+    }
+
 
 
 
