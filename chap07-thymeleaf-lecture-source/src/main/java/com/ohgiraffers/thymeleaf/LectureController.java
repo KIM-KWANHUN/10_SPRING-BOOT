@@ -4,6 +4,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 // 공통으로 들어가는 url 을 클래스에 매핑
@@ -31,11 +34,20 @@ public class LectureController {
         mv.addObject("num", 1);
         mv.addObject("str", "바나나");
 
+        List<MemberDTO> memberList = new ArrayList<>();
+        memberList.add(new MemberDTO("루피",37,'남',"LA"));
+        memberList.add(new MemberDTO("나플라",35,'남',"LA"));
+        memberList.add(new MemberDTO("오왼",33,'남',"LA"));
+        memberList.add(new MemberDTO("블루",33,'남',"LA"));
+
+        mv.addObject("memberList", memberList);
+
         mv.setViewName("lecture/conditional");
 
 
         return mv;
     }
+
 
 
 
