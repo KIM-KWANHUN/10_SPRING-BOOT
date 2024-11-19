@@ -26,5 +26,11 @@
 <p th:text="${param.no[1]}"></p>
 <hr>
 <h3>표현식 - 메세지 표현식 #{...}</h3>
+<!-- resource 하위에 messages.properties 파일을 읽어드릴 수 있다.
+     주의점은 위치와 이름이 다르면 인식할 수 없다. -->
+<p th:text="#{value}"></p>
+<hr>
+<h3>표현식 - 링크 표현식 @{...}</h3>
+<a th:href="@{/}">메인으로</a>
 </body>
 </html>
