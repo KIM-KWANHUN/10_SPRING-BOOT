@@ -24,7 +24,13 @@
     <!-- replace 를 쓰면 밑에 작성해둔 header 영역이 사라지고 ~{} 에 header.html 에 작성해둔 것이 반환된다. -->
         <h1>Header 영역</h1>
     </header>
-    <aside th:replace="~{/common/aside :: asideFragment}"></aside>
+    <!--
+    comment.
+        Fragment 에 우리가 서버에서 받은 값을 전달하여
+        공용으로 사용 할 태그를 동적으로 변환 할 수 있다.
+    -->
+    <aside th:replace="~{/common/aside :: asideFragment(${test}, ${test2})}"></aside>
+    <!-- 전달인자도 넣을수 있다. -->
     <main>
         <aticle>
             <section>
@@ -32,8 +38,14 @@
             </section>
         </aticle>
     </main>
+    <!--
+    comment.
+        th:insert 문법은 해당영역에 삽입하고자 하는 Fragment 를 삽입하는
+        문법으로 블록 내에 정의되어 있는 내용에 불러온 내용을 추가(삽입) 한다.
+        불러오는 블럭을 기준으로 내부의 값을 제거하고 불러온 Fragment 로 삽입한다.
+    -->
     <footer>
-        <h2>Footer 영역</h2>
+        <h2 th:insert="~{/common/footer :: footerFragment}">Footer 영역</h2>
     </footer>
 </body>
 </html>
