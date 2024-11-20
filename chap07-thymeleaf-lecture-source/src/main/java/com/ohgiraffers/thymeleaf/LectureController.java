@@ -77,6 +77,17 @@ public class LectureController {
         return mv;
     }
 
+    @GetMapping("fragment")
+    public ModelAndView fragment(ModelAndView mv) {
+
+        mv.addObject("test","value");
+        mv.addObject("test2","value2");
+
+        mv.setViewName("lecture/fragment");
+        // view 의 이름을 설정하게되면 templates 에 fragment 를 만들어라 라는뜻
+
+        return mv;
+    }
 
 
 
