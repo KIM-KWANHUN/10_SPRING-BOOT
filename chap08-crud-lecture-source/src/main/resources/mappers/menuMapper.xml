@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 는 우리가 만든 MenuMapper 경로 지정 -->
+<mapper namespace="com.ohgiraffers.crud.model.dao.MenuMapper">
+    <resultMap id="menuResultMap" type="com.ohgiraffers.crud.model.dto.MenuDTO">
+        <id property="code" column="menu_code"/>
+        <result property="name" column="menu_name"/>
+        <result property="price" column="menu_price"/>
+        <result property="categoryCode" column="category_code"/>
+        <result property="orderableStatus" column="orderable_status"/>
+    </resultMap>
+    <!-- 위에 resultMap 은 MenuDTO 랑 밑에있는 변수들이랑 매칭을 시켜야한다. -->
+    <select id="findAllMenus" resultMap="menuResultMap">
+        SELECT
+            MENU_CODE,
+            MENU_NAME,
+            MENU_PRICE,
+            CATEGORY_CODE,
+            ORDERABLE_STATUS
+        FROM
+            TBL_MENU
+        WHERE
+            ORDERABLE_STATUS = 'Y'
+        ORDER BY
+            MENU_CODE
+    </select>
+<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
+    <resultMap id="categoryResultMap" type="com.ohgiraffers.crud.model.dto.CategoryDTO">
+        <id property="code" column="category_code"/>
+        <result property="name" column="category_name"/>
+        <result property="refCategoryCode" column="ref_category_code"/>
+    </resultMap>
+    <!-- 위에 type 에 풀 class 명을 입력해야한다. 이를 Alias 를 적어서 생략할 수 있다. -->
+    <select id="findAllCategory" resultMap="categoryResultMap">
+        SELECT
+            *
+        FROM
+            TBL_CATEGORY
+    </select>
+</mapper>
