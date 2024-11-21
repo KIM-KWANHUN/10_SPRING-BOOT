@@ -7,6 +7,7 @@
 </head>
 <body>
     <h3>🍔신규 메뉴 등록🍕</h3>
+    <!-- 안에있는 name= 은 DTO 에 있는 변수들이랑 이름을 같게하는게 좋다. -->
     <form action="/menu/regist" method="post">
         <label>메뉴 이름 : <input type="text" name="name"></label><br>
         <label>메뉴 가격 : <input type="number" name="price" step="1000" min="0"></label><br>
