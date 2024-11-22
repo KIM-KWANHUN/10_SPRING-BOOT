@@ -12,6 +12,7 @@
         <result property="orderableStatus" column="orderable_status"/>
     </resultMap>
     <!-- 위에 resultMap 은 MenuDTO 랑 밑에있는 변수들이랑 매칭을 시켜야한다. -->
+    <!-- 메뉴 전체 조회 -->
     <select id="findAllMenus" resultMap="menuResultMap">
         SELECT
             MENU_CODE,
@@ -39,4 +40,75 @@
         FROM
             TBL_CATEGORY
     </select>
+
+<!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
+<!-- parameterType : 우리가 MenuDTO 을 쓸꺼기 때문에 그 경로를 풀클래스로 적어야함 -->
+    <!-- 메뉴 추가 -->
+    <insert id="registNewMenu" parameterType="com.ohgiraffers.crud.model.dto.MenuDTO">
+        insert into tbl_menu
+        (
+            menu_name,
+            menu_price,
+            category_code,
+            orderable_Status
+        )
+        values
+        (
+            #{name},
+            #{price},
+            #{categoryCode},
+            #{orderableStatus}
+        )
+    </insert>
+    <!-- 코드로 메뉴 상세 조회 -->
+    <select id="selectMenuCode" resultMap="menuResultMap">
+        select
+            *
+        from
+            tbl_menu
+        where
+            menu_code = #{code}
+    </select>
+    <!-- JOIN -->
+    <resultMap id="joinResultMap" type="com.ohgiraffers.crud.model.dto.MenuAndCategoryDTO">
+        <id property="code" column="menu_code"/>
+        <result property="name" column="menu_name"/>
+        <result property="price" column="menu_price"/>
+        <result property="orderableStatus" column="orderable_status"/>
+        <association property="categoryDTO" javaType="com.ohgiraffers.crud.model.dto.CategoryDTO">
+            <id property="code" column="category_code"/>
+            <result property="name" column="category_name"/>
+            <result property="refCategoryCode" column="ref_category_code"/>
+        </association>
+    </resultMap>
+    <select id="findAllMenuAndCategory" resultMap="joinResultMap">
+        select
+            a.menu_code,
+            a.menu_name,
+            a.menu_price,
+            a.orderable_status,
+            b.*
+        from
+            tbl_menu a
+        join
+            tbl_category b on (a.category_code = b.category_code)
+        where
+            a.orderable_status = 'Y'
+    </select>
+    <!-- 메뉴 수정 -->
+    <update id="menuUpdate" parameterType="com.ohgiraffers.crud.model.dto.MenuDTO">
+        update tbl_menu
+        set
+            menu_name = #{name}, menu_price = #{price}, category_code = #{categoryCode}, orderable_status = #{orderableStatus}
+        where
+        menu_code = #{code}
+    </update>
+    <!-- 메뉴 삭제 -->
+    <delete id="menuDelete" parameterType="com.ohgiraffers.crud.model.dto.MenuDTO">
+        delete
+        from
+            tbl_menu
+        where
+            menu_code = #{code}
+    </delete>
 </mapper>

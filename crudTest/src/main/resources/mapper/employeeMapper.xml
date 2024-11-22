@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.crudtest.model.EmployeeMapper">
+    <resultMap id="resultEmployee" type="com.ohgiraffers.crudtest.model.EmployeeDTO">
+        <id property="empId" column="EMP_ID"/>
+        <result property="empName" column="EMP_NAME"/>
+        <result property="empNo" column="EMP_NO"/>
+        <result property="email" column="EMAIL"/>
+        <result property="phone" column="PHONE"/>
+        <result property="deptCode" column="DEPT_CODE"/>
+        <result property="jobCode" column="JOB_CODE"/>
+        <result property="salLevel" column="SAL_LEVEL"/>
+        <result property="salary" column="SALARY"/>
+        <result property="bonus" column="BONUS"/>
+        <result property="managerId" column="MANAGER_ID"/>
+    </resultMap>
+    <select id="employeelist" resultMap="resultEmployee">
+        SELECT
+            *
+<!--            EMP_NAME,-->
+<!--            EMP_NO,-->
+<!--            EMAIL,-->
+<!--            PHONE,-->
+<!--            DEPT_CODE,-->
+<!--            JOB_CODE,-->
+<!--            SAL_LEVEL,-->
+<!--            SALARY,-->
+<!--            BONUS,-->
+<!--            MANAGER_ID-->
+        FROM
+            EMPLOYEE
+    </select>
+</mapper>

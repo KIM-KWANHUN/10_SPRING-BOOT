@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const message = `[[${successMessage}]]`
+    if(message) {
+        alert(message);
+    }
+</script>
+    <h1 th:text="${menu}"></h1>
+<!-- comment.
+       delete 구문 생성
+       인덱스 페이지에서 delete 버튼을 누르면
+       메뉴코드를 입력할 수 있는 input 태그와
+       전송버튼을 보여주는 view 페이지로 이동
+       이후 값 전달 받아 삭제하는 기능 생성
+       전송 버튼 누르면 menu/list 페이지로 redirect 진행
+       리다이렉트 시 사용자에게 alert 창으로
+       몇 번 메뉴 삭제 완료되었습니다. 메세지 출력
+       -->
+    <a th:href="@{/menu/update(code=${menu.code})}">수정</a>
+    <a th:href="@{/menu/delete(code=${menu.code})}">삭제</a>
+<!--    <button th:href="@{/menu/update(code=${menu.code})}" th:text="'메뉴수정'" type="submit"></button>-->
+<!--    <button th:href="@{/menu/delete(code=${menu.code})}" th:text="'메뉴삭제'" type="submit"></button>-->
+</body>
+</html>

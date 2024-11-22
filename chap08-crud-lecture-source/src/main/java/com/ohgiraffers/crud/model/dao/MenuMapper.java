@@ -1,6 +1,7 @@
 package com.ohgiraffers.crud.model.dao;
 
 import com.ohgiraffers.crud.model.dto.CategoryDTO;
+import com.ohgiraffers.crud.model.dto.MenuAndCategoryDTO;
 import com.ohgiraffers.crud.model.dto.MenuDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,4 +18,13 @@ public interface MenuMapper {
 
     List<CategoryDTO> findAllCategory();
 
+    void registNewMenu(MenuDTO newMenu);
+
+    MenuDTO selectMenuCode(String code);
+
+    List<MenuAndCategoryDTO> findAllMenuAndCategory();
+
+    void menuUpdate(MenuDTO updateMenu);
+
+    void menuDelete(MenuDTO code);
 }
