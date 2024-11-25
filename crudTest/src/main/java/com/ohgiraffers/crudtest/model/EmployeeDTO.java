@@ -23,4 +23,7 @@ public class EmployeeDTO {
     private int salary;
     private int bonus;
     private String managerId;
+    private Date hireDate;
+    private Date entDate;
+    private String entYn;
 }

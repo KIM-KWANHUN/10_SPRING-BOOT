@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.crud.Model.DAO.MenuDAO">
+    <resultMap id="menuAllResult" type="com.ohgiraffers.crud.Model.DTO.MenuDTO">
+        <id property="menuCode" column="menu_code"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuPrice" column="menu_price"/>
+        <result property="categoryCode" column="category_code"/>
+        <result property="orderableStatus" column="orderable_status"/>
+    </resultMap>
+    <!-- 메뉴 전체 조회 -->
+    <select id="menuAll" resultMap="menuAllResult">
+        SELECT
+            *
+        FROM
+            TBL_MENU
+        WHERE
+            ORDERABLE_STATUS = 'Y'
+    </select>
+    <!-- 메뉴 코드로 조회 -->
+    <select id="menuCode" resultMap="menuAllResult">
+        SELECT
+            *
+        FROM
+            TBL_MENU
+        WHERE
+            MENU_CODE = #{menuCode}
+    </select>
+</mapper>

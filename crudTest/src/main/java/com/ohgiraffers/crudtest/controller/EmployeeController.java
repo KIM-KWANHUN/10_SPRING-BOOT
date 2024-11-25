@@ -31,6 +31,8 @@ public class EmployeeController {
 
         }
 
+        model.addAttribute("employeelist", employeelist);
+
         return "employee/list";
     }
 }
