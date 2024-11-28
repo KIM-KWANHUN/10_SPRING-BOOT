@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>전체 화면출력 결과</title>
+</head>
+<body>
+    <h1>전체화면 출력 결과</h1>
+    <table border="1">
+        <!-- th : 제목 작성해줄 테이블 헤더-->
+        <tr>
+            <th>메뉴 번호</th>
+            <th>메뉴 이름</th>
+            <th>메뉴 가격</th>
+            <th>카테고리 코드</th>
+            <th>판매 상태</th>
+        </tr>
+        <!-- 하나하나 입력하기 너무 많으므로 타임리프에 있는 th:each 반복문을 통해 작성하는게 편함 -->
+        <tr th:each="menu : ${menuDTO}">
+            <td>
+                <a th:href="@{/menu/code(code=${menu.code})}" th:text="${menu.code}"></a>
+            </td>
+            <td th:text="${menu.name}"></td>
+            <td th:text="${menu.price}"></td>
+            <td th:text="${menu.categoryCode}"></td>
+            <td th:text="${menu.orderableStatus}"></td>
+        </tr>
+    </table>
+</body>
+</html>

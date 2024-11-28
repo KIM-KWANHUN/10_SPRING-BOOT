@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메뉴 추가</title>
+</head>
+<body>
+  <h1>메뉴 추가</h1>
+  <form action="/menu/regist" method="post">
+    <label>메뉴의 이름을 입력해주세요 : <input type="text" name="name"></label><br>
+    <label>메뉴의 가격을 입력해주세요 : <input type="number" name="price"></label><br>
+    <label>메뉴의 카테고리 코드를 입력해주세요 :</label>
+    <select name="categoryCode">
+      <option value=1>식사</option>
+      <option value=1>음료</option>
+      <option value="1">디저트</option>
+      <option value="1">한식</option>
+      <option value="1">중식</option>
+      <option value="1">일식</option>
+      <option value="1">퓨전</option>
+      <option value="1">커피</option>
+      <option value="1">쥬스</option>
+      <option value="1">기타</option>
+      <option value="1">동양</option>
+      <option value="1">서양</option>
+    </select><br>
+    메뉴의 판매여부를 입력해주세요 :
+        <select name="orderableStatus">
+          <option value="Y">Y</option>
+          <option value="N">N</option>
+        </select><br>
+    <input type="submit" value="전송">
+  </form>
+</body>
+</html>

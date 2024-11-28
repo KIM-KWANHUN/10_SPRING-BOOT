@@ -6,4 +6,4 @@ spring:
     password: ohgiraffers
 
 mybatis:
-  mapper-locations: mapper/**/*.xml
+  mapper-locations: mappers/**/*.xml
